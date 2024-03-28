@@ -1,0 +1,22 @@
+{
+  "name": "assignment123009256",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/23009256uhi/assignment123009256.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/23009256uhi/assignment123009256/issues"
+  },
+  "homepage": "https://github.com/23009256uhi/assignment123009256#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
