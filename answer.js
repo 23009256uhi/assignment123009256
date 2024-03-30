@@ -9,6 +9,16 @@ function checkAnswer(selectedAnswer) {
     throw new Error("Selected answer is an empty object");
   }
 
+  // Check if selectedAnswer has a 'correct' property
+  if (!selectedAnswer.hasOwnProperty("correct")) {
+    throw new Error("Selected answer does not have a 'correct' property");
+  }
+
+  // Check if the value of 'correct' key is a boolean
+  if (typeof selectedAnswer.correct !== "boolean") {
+    throw new Error("The value of 'correct' key is not a boolean");
+  }
+
   return selectedAnswer.correct;
 }
 

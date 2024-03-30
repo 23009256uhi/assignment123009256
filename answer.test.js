@@ -26,3 +26,19 @@ test("checkAnswer throws an error for an empty selected answer", () => {
     checkAnswer(selectedAnswer);
   }).toThrow("Selected answer is an empty object");
 });
+
+test("checkAnswer throws an error if selectedAnswer does not have a 'correct' property", () => {
+  const selectedAnswer = { text: "Sample answer" };
+
+  expect(() => {
+    checkAnswer(selectedAnswer);
+  }).toThrow("Selected answer does not have a 'correct' property");
+});
+
+test("checkAnswer throws an error if the value of 'correct' key is not a boolean", () => {
+  const selectedAnswer = { text: "Sample answer", correct: "true" };
+
+  expect(() => {
+    checkAnswer(selectedAnswer);
+  }).toThrow("The value of 'correct' key is not a boolean");
+});
