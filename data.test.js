@@ -1,6 +1,5 @@
 const data = require("./data");
 const canRenderPage = require("./canRenderPage");
-
 const pageData = data["balances"];
 
 describe("canRenderPage", () => {
@@ -15,60 +14,33 @@ describe("canRenderPage", () => {
   test("does not return NaN", () => {
     expect(canRenderPage(pageData)).not.toBeNaN();
   });
+
+  test("returns false for invalid question data", () => {
+    const invalidData = { ...pageData, questions: null };
+    expect(canRenderPage(invalidData)).toBe(false);
+  });
 });
 
-test("render page with valid data", () => {
-  expect(pageData).toHaveProperty("questions");
-  expect(pageData.questions).toHaveProperty("title");
-  expect(pageData.questions).toHaveProperty("fullquestion");
+// DATA TEST
 
-  const fullQuestion = pageData.questions.fullquestion;
-  expect(fullQuestion).toHaveProperty("question");
-  expect(fullQuestion.question).toBeTruthy();
-  expect(typeof fullQuestion.question).toBe("string");
+describe("page data", () => {
+  test("has valid structure", () => {
+    expect(pageData).toHaveProperty("questions");
+    expect(pageData.questions).toHaveProperty("title");
+    expect(pageData.questions).toHaveProperty("fullquestion");
+  });
 
-  expect(fullQuestion).toHaveProperty("answer");
-  expect(Array.isArray(fullQuestion.answer)).toBe(true);
-  expect(fullQuestion.answer.length).toBeGreaterThan(0);
+  test("has valid fullquestion", () => {
+    const fullQuestion = pageData.questions.fullquestion;
+    expect(fullQuestion).toHaveProperty("question");
+    expect(fullQuestion.question).toBeTruthy();
+    expect(typeof fullQuestion.question).toBe("string");
+
+    expect(fullQuestion).toHaveProperty("answer");
+    expect(Array.isArray(fullQuestion.answer)).toBe(true);
+    expect(fullQuestion.answer.length).toBeGreaterThan(0);
+  });
 });
-
-// describe("render page with valid data", () => {
-//   const pageData = data["balances"];
-
-//   test("pageData has questions property", () => {
-//     expect(pageData).toHaveProperty("questions");
-//   });
-
-//   test("questions has title property", () => {
-//     expect(pageData.questions).toHaveProperty("title");
-//   });
-
-//   test("questions has fullquestion property", () => {
-//     expect(pageData.questions).toHaveProperty("fullquestion");
-//   });
-
-//   describe("fullQuestion", () => {
-//     const fullQuestion = pageData.questions.fullquestion;
-
-//     test("has question property", () => {
-//       expect(fullQuestion).toHaveProperty("question");
-//     });
-
-//     test("question is a non-empty string", () => {
-//       expect(fullQuestion.question).toBeTruthy();
-//       expect(typeof fullQuestion.question).toBe("string");
-//     });
-
-//     test("has answer property", () => {
-//       expect(fullQuestion).toHaveProperty("answer");
-//     });
-
-//     test("answer is a non-empty array", () => {
-//       expect(Array.isArray(fullQuestion.answer)).toBe(true);
-//       expect(fullQuestion.answer.length).toBeGreaterThan(0);
-//     });
-//   });
-// });
 
 describe("hint", () => {
   const hint = pageData.hint;
@@ -86,5 +58,36 @@ describe("hint", () => {
   test("has title property", () => {
     expect(hint).toHaveProperty("title");
     expect(Array.isArray(hint.title)).toBe(true);
+  });
+
+  test("titleColumn has valid structure", () => {
+    pageData.hint.titleColumn.forEach((column) => {
+      expect(column).toHaveProperty("linkTitle");
+      expect(typeof column.linkTitle).toBe("string");
+      expect(column).toHaveProperty("columnTitle");
+      expect(typeof column.columnTitle).toBe("string");
+    });
+  });
+
+  test("video has valid structure", () => {
+    pageData.hint.video.forEach((video) => {
+      expect(video).toHaveProperty("image");
+      expect(typeof video.image).toBe("string");
+      expect(video).toHaveProperty("link");
+      expect(typeof video.link).toBe("string");
+      expect(video).toHaveProperty("title");
+      expect(typeof video.title).toBe("string");
+      expect(video).toHaveProperty("type");
+      expect(typeof video.type).toBe("string");
+    });
+  });
+
+  test("title has valid structure", () => {
+    pageData.hint.title.forEach((title) => {
+      expect(title).toHaveProperty("linkTitle");
+      expect(typeof title.linkTitle).toBe("string");
+      expect(title).toHaveProperty("rowTitle");
+      expect(typeof title.rowTitle).toBe("string");
+    });
   });
 });
